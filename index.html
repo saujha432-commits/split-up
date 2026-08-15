@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Split Up  — Expense Splitting for Friends</title>
+  <meta name="description" content="Split expenses with friends the fun way. Track who owes whom, settle up with streaks, and keep the vibe alive." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div id="splash-screen" class="splash">
+    <div class="splash-logo">
+      <span class="splash-emoji">💸</span>
+      <h1 class="splash-title">Split Up</h1>
+      <p class="splash-tagline">Friends. Expenses. No drama.</p>
+    </div>
+    <div class="splash-loader">
+      <div class="loader-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="screen hidden">
+    <div class="auth-bg">
+      <div class="auth-blob blob-1"></div>
+      <div class="auth-blob blob-2"></div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-header">
+        <span class="app-logo-emoji"></span>
+        <h1 class="app-title">Split Up</h1>
+        <p class="auth-subtitle">Splitting bills, keeping friendships ✨</p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <button id="login-btn" class="btn btn-primary btn-full">Sign In 💌</button>
+        <div class="auth-divider"><span>or</span></div>
+        <button id="google-login-btn" class="btn btn-google btn-full">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" />
+          Continue with Google
+        </button>
+        <button id="demo-login-btn" class="btn btn-secondary btn-full" style="margin-top: 10px; background: #FFF0E8;">
+          ⚡ Try Instant Demo Mode ✨
+        </button>
+        <p class="auth-switch">No account? <button id="show-signup" class="link-btn">Sign up 🌸</button></p>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signup-form" class="auth-form hidden">
+        <div class="form-group">
+          <label for="signup-name">Your Name</label>
+          <input type="text" id="signup-name" placeholder="What should friends call you?" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" placeholder="Make it strong! 🔒" autocomplete="new-password" />
+        </div>
+        <button id="signup-btn" class="btn btn-primary btn-full">Create Account 🎉</button>
+        <p class="auth-switch">Already have one? <button id="show-login" class="link-btn">Sign in 💌</button></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="hidden">
+
+    <!-- Top Bar -->
+    <header class="top-bar" id="top-bar">
+      <div class="top-bar-left">
+        <span class="app-brand">Split Up </span>
+      </div>
+      <div class="top-bar-right">
+        <button class="icon-btn" id="notifications-btn" aria-label="Notifications">
+          <span class="notif-icon">🔔</span>
+          <span class="notif-badge hidden" id="notif-badge">3</span>
+        </button>
+        <div class="avatar-wrap" id="user-avatar-btn">
+          <div class="avatar" id="user-avatar">?</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <main class="pages-container">
+
+      <!-- HOME PAGE -->
+      <div id="page-home" class="page active">
+        <div class="page-content">
+          <div class="welcome-banner">
+            <div class="welcome-text">
+              <p class="greeting" id="greeting-text">Good morning ☀️</p>
+              <h2 class="user-name" id="home-username">Hey, friend!</h2>
+            </div>
+            <div class="balance-pill" id="home-balance-pill">
+              <span class="balance-label">Net Balance</span>
+              <span class="balance-amount" id="home-net-balance">₹0</span>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card stat-owed">
+              <span class="stat-emoji">📥</span>
+              <div>
+                <p class="stat-label">You're owed</p>
+                <p class="stat-value" id="stat-owed">₹0</p>
+              </div>
+            </div>
+            <div class="stat-card stat-owes">
+              <span class="stat-emoji">📤</span>
+              <div>
+                <p class="stat-label">You owe</p>
+                <p class="stat-value" id="stat-owes">₹0</p>
+              </div>
+            </div>
+            <div class="stat-card stat-streak">
+              <span class="stat-emoji">🔥</span>
+              <div>
+                <p class="stat-label">Streak</p>
+                <p class="stat-value" id="stat-streak">0d</p>
+              </div>
+            </div>
+          </div>
+
+          <section class="section">
+            <div class="section-header">
+              <h3 class="section-title">Your Groups</h3>
+              <button class="link-btn" id="see-all-groups">See all</button>
+            </div>
+            <div class="groups-scroll" id="home-groups-list">
+              <div class="empty-state-inline">
+                <span></span>
+                <p>Create your first group!</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="section-header">
+              <h3 class="section-title">Recent Activity</h3>
+            </div>
+            <div id="recent-activity-list" class="activity-list">
+              <div class="empty-state">
+                <span class="empty-emoji"></span>
+                <p>No expenses yet — add your first one!</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- GROUPS PAGE -->
+      <div id="page-groups" class="page hidden">
+        <div class="page-content">
+          <div class="page-header">
+            <h2 class="page-title">Groups 🏡</h2>
+            <button class="btn btn-primary btn-sm" id="new-group-btn">+ New</button>
+          </div>
+          <div id="groups-list" class="groups-grid">
+            <div class="empty-state">
+              <span class="empty-emoji">👯</span>
+              <p>No groups yet</p>
+              <p class="empty-sub">Create one to start splitting!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD EXPENSE PAGE -->
+      <div id="page-add" class="page hidden">
+        <div class="page-content">
+          <div class="page-header">
+            <h2 class="page-title">Add Expense ✨</h2>
+          </div>
+          <form id="add-expense-form" class="expense-form" novalidate>
+            <div class="form-group">
+              <label>What was it for?</label>
+              <input type="text" id="expense-desc" placeholder="e.g. Dinner at Zomato 🍕" maxlength="60" />
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input-wrap">
+                <select id="expense-currency" class="currency-select">
+                  <option value="INR">₹ INR</option>
+                  <option value="USD">$ USD</option>
+                  <option value="EUR">€ EUR</option>
+                  <option value="GBP">£ GBP</option>
+                  <option value="JPY">¥ JPY</option>
+                </select>
+                <input type="number" id="expense-amount" placeholder="0.00" min="0" step="0.01" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <div class="category-picker" id="category-picker">
+                <button type="button" class="cat-btn active" data-cat="food" data-emoji="🍕">🍕 Food</button>
+                <button type="button" class="cat-btn" data-cat="transport" data-emoji="🚗">🚗 Travel</button>
+                <button type="button" class="cat-btn" data-cat="home" data-emoji="🏠">🏠 Rent</button>
+                <button type="button" class="cat-btn" data-cat="trip" data-emoji="✈️">✈️ Trip</button>
+                <button type="button" class="cat-btn" data-cat="fun" data-emoji="🎉">🎉 Fun</button>
+                <button type="button" class="cat-btn" data-cat="treat" data-emoji="🧁">🧁 Treat</button>
+                <button type="button" class="cat-btn" data-cat="health" data-emoji="💊">💊 Health</button>
+                <button type="button" class="cat-btn" data-cat="other" data-emoji="📦">📦 Other</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Vibe Check 🎭</label>
+              <div class="mood-picker" id="mood-picker">
+                <button type="button" class="mood-btn active" data-mood="worth-it">✨ Worth it</button>
+                <button type="button" class="mood-btn" data-mood="treat-yourself">🛍 Treat yo'self</button>
+                <button type="button" class="mood-btn" data-mood="regret">😬 Regret</button>
+                <button type="button" class="mood-btn" data-mood="necessary">📌 Necessary</button>
+                <button type="button" class="mood-btn" data-mood="yolo">🤙 YOLO</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Group</label>
+              <select id="expense-group" class="styled-select">
+                <option value="">Select a group...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Paid by</label>
+              <select id="expense-paid-by" class="styled-select">
+                <option value="me">Me</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Split method</label>
+              <div class="split-tabs" id="split-tabs">
+                <button type="button" class="split-tab active" data-method="equal">⚖️ Equal</button>
+                <button type="button" class="split-tab" data-method="percentage">% Percent</button>
+                <button type="button" class="split-tab" data-method="exact">💰 Exact</button>
+                <button type="button" class="split-tab" data-method="shares">📊 Shares</button>
+              </div>
+              <div id="split-detail" class="split-detail"></div>
+            </div>
+            <div class="form-group">
+              <label>IOU Note <span class="optional-tag">optional</span></label>
+              <div class="iou-input-wrap">
+                <input type="text" id="iou-note" placeholder="Add a message 😭" maxlength="120" />
+                <button type="button" class="emoji-picker-btn" id="iou-emoji-btn">😄</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Receipt <span class="optional-tag">optional</span></label>
+              <div class="receipt-upload" id="receipt-drop-zone">
+                <input type="file" id="receipt-file" accept="image/*" hidden />
+                <button type="button" class="receipt-upload-btn" id="receipt-upload-btn">📷 Scan Receipt</button>
+                <span class="receipt-hint">Snap your bill, we'll help split it</span>
+                <div id="receipt-preview" class="receipt-preview hidden"></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submit-expense-btn">
+              Add Expense 
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ACTIVITY PAGE -->
+      <div id="page-activity" class="page hidden">
+        <div class="page-content">
+          <div class="page-header">
+            <h2 class="page-title">Activity 📋</h2>
+            <div class="filter-row">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="owed">Owed</button>
+              <button class="filter-btn" data-filter="owes">Owes</button>
+              <button class="filter-btn" data-filter="settled">Settled</button>
+            </div>
+          </div>
+          <div id="activity-list" class="activity-list"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-page="home" aria-label="Home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-page="groups" aria-label="Groups">
+        <span class="nav-icon">👯</span>
+        <span class="nav-label">Groups</span>
+      </button>
+      <button class="nav-item nav-add" data-page="add" aria-label="Add Expense">
+        <span class="nav-icon-add">+</span>
+      </button>
+      <button class="nav-item" data-page="activity" aria-label="Activity">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Activity</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Create Group Modal -->
+  <div id="modal-create-group" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>New Group 🎉</h3>
+        <button class="modal-close" data-modal="modal-create-group">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Group Name</label>
+          <input type="text" id="group-name-input" placeholder="e.g. Goa Trip 🌴" maxlength="40" />
+        </div>
+        <div class="form-group">
+          <label>Group Type</label>
+          <div class="group-type-picker" id="group-type-picker">
+            <button type="button" class="gtype-btn active" data-type="trip">✈️ Trip</button>
+            <button type="button" class="gtype-btn" data-type="home">🏠 Home</button>
+            <button type="button" class="gtype-btn" data-type="friends">👯 Friends</button>
+            <button type="button" class="gtype-btn" data-type="other">📦 Other</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Add Members <span class="optional-tag">(by email)</span></label>
+          <div class="member-input-wrap">
+            <input type="email" id="member-email-input" placeholder="friend@email.com" />
+            <button type="button" class="btn btn-sm btn-secondary" id="add-member-btn">Add</button>
+          </div>
+          <div id="members-list" class="members-chips"></div>
+        </div>
+        <button class="btn btn-primary btn-full" id="create-group-btn">Create Group </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Group Detail Modal -->
+  <div id="modal-group-detail" class="modal-overlay hidden">
+    <div class="modal-card modal-card-tall">
+      <div class="modal-header">
+        <h3 id="gd-title">Group Name</h3>
+        <button class="modal-close" data-modal="modal-group-detail">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="vibe-score-card" id="gd-vibe-card">
+          <div class="vibe-score-label">Group Vibe Score 🌈</div>
+          <div class="vibe-score-bar-wrap">
+            <div class="vibe-score-bar" id="gd-vibe-bar" style="width:0%"></div>
+          </div>
+          <div class="vibe-score-value" id="gd-vibe-value">100% Balanced ✨</div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Who owes what</h4>
+          <div id="gd-balances" class="balance-list"></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Expenses</h4>
+          <div id="gd-expenses" class="activity-list"></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Group Polls 🗳️</h4>
+          <div id="gd-polls" class="polls-list">
+            <div class="empty-state-inline"><span>🗳️</span><p>No polls yet</p></div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="new-poll-btn">+ New Poll</button>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Savings Goal 🎯</h4>
+          <div id="gd-savings" class="savings-section">
+            <div class="empty-state-inline"><span>🎯</span><p>No savings goal set</p></div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="set-savings-btn">Set Goal</button>
+        </div>
+        <button class="btn btn-accent btn-full" id="share-settle-btn">📸 Share Settle-Up Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settle Up Modal -->
+  <div id="modal-settle" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Settle Up 🎊</h3>
+        <button class="modal-close" data-modal="modal-settle">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settle-info" id="settle-info"></div>
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" id="settle-amount" class="styled-input" placeholder="0.00" />
+        </div>
+        <div class="form-group">
+          <label>Add a note (optional)</label>
+          <input type="text" id="settle-note" placeholder="Thanks for covering! " />
+        </div>
+        <button class="btn btn-primary btn-full" id="confirm-settle-btn">Mark as Paid 🎉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Poll Modal -->
+  <div id="modal-poll" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>New Group Poll 🗳️</h3>
+        <button class="modal-close" data-modal="modal-poll">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Question</label>
+          <input type="text" id="poll-question" placeholder="Should we get the expensive cake? 🎂" />
+        </div>
+        <div class="form-group">
+          <label>Options</label>
+          <div id="poll-options-list">
+            <input type="text" class="poll-option-input" placeholder="Option 1" />
+            <input type="text" class="poll-option-input" placeholder="Option 2" />
+          </div>
+          <button type="button" class="btn btn-sm btn-secondary" id="add-poll-option-btn">+ Add Option</button>
+        </div>
+        <button class="btn btn-primary btn-full" id="create-poll-btn">Launch Poll 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Savings Goal Modal -->
+  <div id="modal-savings" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Set Savings Goal 🎯</h3>
+        <button class="modal-close" data-modal="modal-savings">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Goal Name</label>
+          <input type="text" id="savings-name" placeholder="e.g. Manali Trip Fund 🏔️" />
+        </div>
+        <div class="form-group">
+          <label>Target Amount</label>
+          <input type="number" id="savings-target" placeholder="0.00" />
+        </div>
+        <button class="btn btn-primary btn-full" id="create-savings-btn">Set Goal 🎯</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="modal-profile" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Profile </h3>
+        <button class="modal-close" data-modal="modal-profile">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-avatar-large" id="profile-avatar-large">?</div>
+        <p class="profile-name-display" id="profile-name-display">Friend</p>
+        <p class="profile-email-display" id="profile-email-display">—</p>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <span class="pstat-value" id="p-total-expenses">0</span>
+            <span class="pstat-label">Expenses</span>
+          </div>
+          <div class="profile-stat">
+            <span class="pstat-value" id="p-total-groups">0</span>
+            <span class="pstat-label">Groups</span>
+          </div>
+          <div class="profile-stat">
+            <span class="pstat-value" id="p-streak">🔥0</span>
+            <span class="pstat-label">Streak</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Currency Preference</label>
+          <select id="pref-currency" class="styled-select">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary btn-full" id="save-profile-btn">Save Changes</button>
+        <button class="btn btn-ghost btn-full" id="signout-btn">Sign Out 👋</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Scanner / Itemized Splitter Modal -->
+  <div id="modal-receipt-scanner" class="modal-overlay hidden">
+    <div class="modal-card modal-card-tall">
+      <div class="modal-header">
+        <h3>Receipt Item Splitter 🧾</h3>
+        <button class="modal-close" data-modal="modal-receipt-scanner">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="receipt-modal-sub">Check off who ordered each item from the receipt!</p>
+        <div id="receipt-items-list" class="receipt-items-container"></div>
+        <div class="receipt-scanner-total">
+          <span>Scanned Total:</span>
+          <strong id="receipt-scanned-total">₹0.00</strong>
+        </div>
+        <button class="btn btn-primary btn-full" id="apply-receipt-split-btn">Apply Split to Expense ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chip In Savings Goal Modal -->
+  <div id="modal-chip-in" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Chip In to Savings Goal 🎯</h3>
+        <button class="modal-close" data-modal="modal-chip-in">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Contribution Amount</label>
+          <input type="number" id="chip-in-amount" placeholder="e.g. 500" min="1" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label>Encouraging Note <span class="optional-tag">optional</span></label>
+          <input type="text" id="chip-in-note" placeholder="For the Goa trip vibes! 🌴" />
+        </div>
+        <button class="btn btn-primary btn-full" id="submit-chip-in-btn">Chip In 💖</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voice Log Expense Modal -->
+  <div id="modal-voice-log" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Voice Receipt & Log 🎙️</h3>
+        <button class="modal-close" data-modal="modal-voice-log">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div class="voice-mic-circle" id="voice-mic-trigger">
+          <span class="mic-icon">🎙️</span>
+        </div>
+        <p id="voice-status-text" class="voice-status">Tap the mic and say: <em>"Dinner 1200 at Zomato with Goa Trip"</em></p>
+        <div id="voice-transcript" class="voice-transcript-box hidden"></div>
+        <button class="btn btn-secondary btn-full hidden" id="apply-voice-log-btn">Fill Expense Form ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Card Modal -->
+  <div id="modal-share-card" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Settle-Up Story Card 📸</h3>
+        <button class="modal-close" data-modal="modal-share-card">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="share-card-canvas" class="share-card">
+          <div class="share-card-header">
+            <span class="share-card-logo">Split Up 💖</span>
+            <span class="share-card-badge">STORY SUMMARY</span>
+          </div>
+          <div class="share-card-group-name" id="sc-group-name">Group Name</div>
+          <div class="share-card-balances" id="sc-balances"></div>
+          <div class="share-card-footer">Generated with Split Up 💖 · Friends. Expenses. No Drama.</div>
+        </div>
+        <button class="btn btn-primary btn-full" id="download-share-card-btn">📥 Download PNG Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
