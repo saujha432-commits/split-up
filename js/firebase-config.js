@@ -1,14 +1,13 @@
 // ============================================================
-// FIREBASE CONFIGURATION
-// Split Up App — Replace with your own Firebase project config
+// FIREBASE CONFIGURATION — SPLIT UP APP
 // ============================================================
-// HOW TO GET YOUR CONFIG:
+// HOW TO CONNECT YOUR REAL FIREBASE PROJECT:
 //   1. Go to https://console.firebase.google.com
-//   2. Create a project (or open existing one)
-//   3. Project Settings → Your Apps → Web App → SDK Setup
-//   4. Copy the firebaseConfig object below
-//   5. Enable Authentication → Email/Password + Google
-//   6. Enable Firestore Database (start in test mode)
+//   2. Click "Add Project" (or open your existing project)
+//   3. In Project Overview, click the Web icon (</>) to register an app
+//   4. Copy your `firebaseConfig` object and replace the values below
+//   5. Go to Authentication → Get Started → Enable "Email/Password" and "Google"
+//   6. Go to Firestore Database → Create Database → Start in Test Mode
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -43,7 +42,7 @@ import {
   arrayRemove
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ⚠️ REPLACE THIS with your actual Firebase config (or use Instant Demo Mode automatically)
+// ⚠️ PASTE YOUR FIREBASE API KEYS HERE:
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -53,6 +52,7 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
+// Automatic check: If keys are placeholders, fallback to Demo Mode so app UI runs smoothly
 const isDemoMode = !firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY" || firebaseConfig.apiKey.includes("YOUR_");
 
 let app = null, auth = null, db = null, googleProvider = null;
@@ -64,11 +64,11 @@ if (!isDemoMode) {
     db = getFirestore(app);
     googleProvider = new GoogleAuthProvider();
   } catch (e) {
-    console.warn("Firebase initialization error, switching to Demo Mode:", e);
+    console.warn("Firebase initialization failed, falling back to Demo Mode:", e);
   }
 }
 
-// Export everything the app needs, along with demo state
+// Export Firebase services and Firestore tools
 export {
   isDemoMode,
   auth,
@@ -98,4 +98,3 @@ export {
   arrayUnion,
   arrayRemove
 };
-

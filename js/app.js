@@ -15,164 +15,14 @@ import {
 // ============================================================
 // DEMO MOCK STORE PROVIDER (Local-First fallback)
 // ============================================================
-const DEMO_STORAGE_KEY = 'splitup_demo_db_v2';
+const DEMO_STORAGE_KEY = 'splitup_prod_db_v5';
 
 function getDemoInitialData() {
   return {
-    users: {
-      'demo_user_1': {
-        uid: 'demo_user_1',
-        name: 'Priya Sharma',
-        email: 'priya@example.com',
-        currency: 'INR',
-        streak: 4,
-        totalExpenses: 5,
-        createdAt: new Date().toISOString()
-      }
-    },
-    groups: [
-      {
-        id: 'g_goa_trip',
-        name: 'Goa Trip 🌴',
-        type: 'trip',
-        emoji: '✈️',
-        members: ['demo_user_1', 'demo_user_2', 'demo_user_3'],
-        memberEmails: ['priya@example.com', 'rahul@example.com', 'ananya@example.com'],
-        createdBy: 'demo_user_1',
-        createdAt: new Date().toISOString(),
-        savingsGoal: {
-          name: 'Manali Winter Fund 🏔️',
-          target: 30000,
-          current: 14500,
-          currency: 'INR'
-        }
-      },
-      {
-        id: 'g_roommates',
-        name: 'Roommates 🏠',
-        type: 'home',
-        emoji: '🏠',
-        members: ['demo_user_1', 'demo_user_4'],
-        memberEmails: ['priya@example.com', 'rohit@example.com'],
-        createdBy: 'demo_user_1',
-        createdAt: new Date().toISOString(),
-        savingsGoal: null
-      }
-    ],
-    expenses: [
-      {
-        id: 'exp_1',
-        desc: 'Beach Shack Dinner 🍕',
-        amount: 3600,
-        currency: 'INR',
-        category: 'food',
-        emoji: '🍕',
-        mood: 'worth-it',
-        groupId: 'g_goa_trip',
-        groupName: 'Goa Trip 🌴',
-        paidBy: 'rahul@example.com',
-        paidByEmail: 'rahul@example.com',
-        paidByName: 'Rahul',
-        splits: {
-          'priya@example.com': 1200,
-          'rahul@example.com': 1200,
-          'ananya@example.com': 1200
-        },
-        splitMethod: 'equal',
-        iouNote: 'Best seafood ever! 💖',
-        settled: false,
-        involvedUsers: ['demo_user_1'],
-        createdBy: 'demo_user_2',
-        createdAt: new Date(Date.now() - 3600000 * 4).toISOString()
-      },
-      {
-        id: 'exp_2',
-        desc: 'Uber to Calangute 🚗',
-        amount: 850,
-        currency: 'INR',
-        category: 'transport',
-        emoji: '🚗',
-        mood: 'necessary',
-        groupId: 'g_goa_trip',
-        groupName: 'Goa Trip 🌴',
-        paidBy: 'demo_user_1',
-        paidByEmail: 'priya@example.com',
-        paidByName: 'Me',
-        splits: {
-          'priya@example.com': 283.33,
-          'rahul@example.com': 283.33,
-          'ananya@example.com': 283.34
-        },
-        splitMethod: 'equal',
-        iouNote: 'Traffic was insane 😭',
-        settled: false,
-        involvedUsers: ['demo_user_1'],
-        createdBy: 'demo_user_1',
-        createdAt: new Date(Date.now() - 3600000 * 18).toISOString()
-      },
-      {
-        id: 'exp_3',
-        desc: 'Sunset Cocktails 🍹',
-        amount: 2200,
-        currency: 'INR',
-        category: 'fun',
-        emoji: '🎉',
-        mood: 'treat-yourself',
-        groupId: 'g_goa_trip',
-        groupName: 'Goa Trip 🌴',
-        paidBy: 'ananya@example.com',
-        paidByEmail: 'ananya@example.com',
-        paidByName: 'Ananya',
-        splits: {
-          'priya@example.com': 733.33,
-          'rahul@example.com': 733.33,
-          'ananya@example.com': 733.34
-        },
-        splitMethod: 'equal',
-        iouNote: 'Worth every rupee! 🍹✨',
-        settled: false,
-        involvedUsers: ['demo_user_1'],
-        createdBy: 'demo_user_3',
-        createdAt: new Date(Date.now() - 3600000 * 36).toISOString()
-      },
-      {
-        id: 'exp_4',
-        desc: 'Wifi & Electricity ⚡',
-        amount: 2400,
-        currency: 'INR',
-        category: 'home',
-        emoji: '🏠',
-        mood: 'necessary',
-        groupId: 'g_roommates',
-        groupName: 'Roommates 🏠',
-        paidBy: 'demo_user_1',
-        paidByEmail: 'priya@example.com',
-        paidByName: 'Me',
-        splits: {
-          'priya@example.com': 1200,
-          'rohit@example.com': 1200
-        },
-        splitMethod: 'equal',
-        iouNote: 'Please GPay on time! 📌',
-        settled: false,
-        involvedUsers: ['demo_user_1'],
-        createdBy: 'demo_user_1',
-        createdAt: new Date(Date.now() - 86400000 * 3).toISOString()
-      }
-    ],
-    polls: [
-      {
-        id: 'poll_1',
-        groupId: 'g_goa_trip',
-        question: 'Should we book the ₹5000 Sunset Yacht or ₹2500 Kayaking? ⛵',
-        options: [
-          { label: '⛵ Sunset Yacht Cruise (₹5000)', votes: ['demo_user_1', 'demo_user_2'] },
-          { label: '🚣 Kayaking Tour (₹2500)', votes: ['demo_user_3'] }
-        ],
-        createdBy: 'demo_user_1',
-        createdAt: new Date().toISOString()
-      }
-    ]
+    users: {},
+    groups: [],
+    expenses: [],
+    polls: []
   };
 }
 
@@ -183,7 +33,16 @@ function loadDemoDb() {
     localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(data));
     return data;
   }
-  try { return JSON.parse(raw); } catch (e) { return getDemoInitialData(); }
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed.groups) parsed.groups = [];
+    if (!parsed.expenses) parsed.expenses = [];
+    if (!parsed.polls) parsed.polls = [];
+    if (!parsed.users) parsed.users = {};
+    return parsed;
+  } catch (e) {
+    return getDemoInitialData();
+  }
 }
 
 function saveDemoDb(data) {
@@ -287,6 +146,15 @@ function addRipple(btn, e) {
 
 function getUserInitial(name) {
   return (name || '?').charAt(0).toUpperCase();
+}
+
+function generateInviteCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
 }
 
 function getGroupEmoji(type) {
@@ -393,6 +261,17 @@ function navigateTo(pageId) {
   if (pageId === 'add') populateExpenseForm();
 }
 
+function formatNameFromEmail(email) {
+  if (!email || !email.includes('@')) return 'Friend';
+  const prefix = email.split('@')[0];
+  const formatted = prefix
+    .split(/[._\-+]/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+  return formatted || prefix;
+}
+
 // ============================================================
 // AUTH & DEMO LOGIN
 // ============================================================
@@ -409,24 +288,33 @@ function initAuthListeners() {
 
   // Instant Demo Login
   $('demo-login-btn')?.addEventListener('click', () => {
-    activateDemoSession('priya@example.com', 'Priya Sharma');
+    const inputName = $('login-name')?.value.trim();
+    const email = $('login-email')?.value.trim() || 'user@example.com';
+    const name = inputName || formatNameFromEmail(email) || 'Demo User';
+    activateDemoSession(email, name);
   });
 
   // Email Sign In
   $('login-btn')?.addEventListener('click', async () => {
     const email = $('login-email').value.trim();
     const password = $('login-password').value;
+    const inputName = $('login-name')?.value.trim();
     if (!email || !password) { showToast('Please fill in all fields 🌸', 'error'); return; }
 
+    const name = inputName || formatNameFromEmail(email);
+
     if (isDemoMode || !auth) {
-      activateDemoSession(email, email.split('@')[0]);
+      activateDemoSession(email, name);
       return;
     }
 
     $('login-btn').disabled = true;
     $('login-btn').textContent = 'Signing in...';
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      if (inputName && cred.user) {
+        await updateProfile(cred.user, { displayName: inputName });
+      }
     } catch (err) {
       showToast(friendlyAuthError(err.code), 'error');
       $('login-btn').disabled = false;
@@ -463,8 +351,9 @@ function initAuthListeners() {
 
   // Google Sign In
   $('google-login-btn')?.addEventListener('click', async () => {
+    const inputName = $('login-name')?.value.trim();
     if (isDemoMode || !auth) {
-      activateDemoSession('google_friend@example.com', 'Google Friend');
+      activateDemoSession('google_friend@example.com', inputName || 'Google Friend');
       return;
     }
     try {
@@ -472,7 +361,7 @@ function initAuthListeners() {
       const user = result.user;
       const ref = doc(db, 'users', user.uid);
       const snap = await getDoc(ref);
-      if (!snap.exists()) await createUserProfile(user, user.displayName || 'Friend');
+      if (!snap.exists()) await createUserProfile(user, inputName || user.displayName || 'Friend');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') {
         showToast(friendlyAuthError(err.code), 'error');
@@ -496,31 +385,42 @@ function friendlyAuthError(code) {
 
 async function createUserProfile(user, name) {
   if (isDemoMode || !db) return;
-  await setDoc(doc(db, 'users', user.uid), {
-    name,
+  const displayName = name || user.displayName || formatNameFromEmail(user.email) || 'Friend';
+  const avatarInitial = getUserInitial(displayName);
+  const profileData = {
+    uid: user.uid,
+    name: displayName,
     email: user.email,
+    avatarInitial,
     currency: 'INR',
     streak: 0,
     lastSettledAt: null,
     totalExpenses: 0,
     createdAt: serverTimestamp()
-  });
+  };
+  await setDoc(doc(db, 'users', user.uid), profileData, { merge: true });
 }
 
 function activateDemoSession(email, name) {
   activeDemoSession = true;
-  currentUser = { uid: 'demo_user_1', email, displayName: name };
+  const displayName = name || formatNameFromEmail(email) || 'Demo User';
+  currentUser = { uid: 'demo_user_1', email: email || 'user@example.com', displayName };
   const dbData = loadDemoDb();
-  userProfile = dbData.users['demo_user_1'] || { name, email, currency: 'INR', streak: 4, totalExpenses: 5 };
-  userProfile.name = name;
-  userProfile.email = email;
+  userProfile = dbData.users['demo_user_1'] || { name: displayName, email: email || 'user@example.com', currency: 'INR', streak: 0, totalExpenses: 0 };
+  userProfile.name = displayName;
+  userProfile.email = email || 'user@example.com';
+
+  if (!dbData.users) dbData.users = {};
+  dbData.users['demo_user_1'] = userProfile;
+  saveDemoDb(dbData);
+
   groups = dbData.groups || [];
   expenses = dbData.expenses || [];
   showApp();
   updateTopBar();
   renderHome();
   hideSplash();
-  showToast(`Welcome to Split Up Instant Demo Mode, ${name.split(' ')[0]}! ✨`, 'success', 3200);
+  showToast(`Welcome to Split Up, ${displayName.split(' ')[0]}! ✨`, 'success', 3200);
 }
 
 // ============================================================
@@ -529,24 +429,39 @@ function activateDemoSession(email, name) {
 async function loadUserData() {
   if (activeDemoSession || isDemoMode || !db) {
     const dbData = loadDemoDb();
-    userProfile = dbData.users['demo_user_1'] || { name: currentUser.displayName || 'Friend', currency: 'INR', streak: 4 };
+    userProfile = dbData.users['demo_user_1'] || { name: currentUser?.displayName || 'Demo User', currency: 'INR', streak: 0, totalExpenses: 0 };
     groups = dbData.groups || [];
     expenses = dbData.expenses || [];
     updateTopBar();
     renderHome();
+    checkPendingJoinUrl();
     return;
   }
 
   try {
     const ref = doc(db, 'users', currentUser.uid);
     const snap = await getDoc(ref);
-    if (snap.exists()) userProfile = snap.data();
-    else userProfile = { name: currentUser.displayName || 'Friend', currency: 'INR', streak: 0 };
+    if (snap.exists()) {
+      userProfile = snap.data();
+    } else {
+      const defaultName = currentUser.displayName || formatNameFromEmail(currentUser.email);
+      await createUserProfile(currentUser, defaultName);
+      userProfile = {
+        uid: currentUser.uid,
+        name: defaultName,
+        email: currentUser.email,
+        avatarInitial: getUserInitial(defaultName),
+        currency: 'INR',
+        streak: 0,
+        totalExpenses: 0
+      };
+    }
 
     updateTopBar();
     await loadGroups();
     await loadExpenses();
     renderHome();
+    checkPendingJoinUrl();
   } catch (err) {
     console.warn("Firestore fallback to local storage:", err);
     activateDemoSession(currentUser.email || 'friend@example.com', currentUser.displayName || 'Friend');
@@ -554,10 +469,12 @@ async function loadUserData() {
 }
 
 function updateTopBar() {
-  const name = userProfile.name || currentUser?.displayName || 'Friend';
+  const name = userProfile.name || currentUser?.displayName || formatNameFromEmail(currentUser?.email) || 'Friend';
+  const firstName = name.split(' ')[0];
   if ($('user-avatar')) $('user-avatar').textContent = getUserInitial(name);
-  if ($('home-username')) $('home-username').textContent = `Hey, ${name.split(' ')[0]}!`;
+  if ($('home-username')) $('home-username').textContent = `Hey, ${firstName}!`;
   if ($('greeting-text')) $('greeting-text').textContent = getGreeting();
+  updateSyncStatusBadge();
 }
 
 // ============================================================
@@ -565,25 +482,50 @@ function updateTopBar() {
 // ============================================================
 async function loadGroups() {
   if (activeDemoSession || isDemoMode || !db) {
-    groups = loadDemoDb().groups;
+    groups = loadDemoDb().groups || [];
+    groups.forEach(g => {
+      if (!g.inviteCode) g.inviteCode = generateInviteCode();
+    });
     return;
   }
-  const q = query(collection(db, 'groups'), where('members', 'array-contains', currentUser.uid));
-  const snap = await getDocs(q);
-  groups = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  try {
+    const q = query(collection(db, 'groups'), where('members', 'array-contains', currentUser.uid));
+    const snap = await getDocs(q);
+    groups = snap.docs.map(d => {
+      const data = d.data();
+      return { id: d.id, ...data, inviteCode: data.inviteCode || generateInviteCode() };
+    });
+  } catch (err) {
+    console.warn("Error loading groups:", err);
+    groups = loadDemoDb().groups || [];
+  }
 }
 
 function initGroupListeners() {
-  ['new-group-btn'].forEach(id => {
+  ['new-group-btn', 'inline-new-group-btn'].forEach(id => {
     $(id)?.addEventListener('click', () => {
       pendingMembers = [];
       $('group-name-input').value = '';
+      if ($('group-desc-input')) $('group-desc-input').value = '';
       $('member-email-input').value = '';
-      $('members-list').innerHTML = '';
+      renderMemberChips();
       currentGroupType = 'trip';
       qsa('.gtype-btn').forEach(b => b.classList.toggle('active', b.dataset.type === 'trip'));
       openModal('modal-create-group');
     });
+  });
+
+  $('join-group-btn')?.addEventListener('click', () => {
+    if ($('join-code-input')) $('join-code-input').value = '';
+    openModal('modal-join-group');
+  });
+
+  $('submit-join-group-btn')?.addEventListener('click', () => {
+    joinGroupByCode($('join-code-input')?.value);
+  });
+
+  $('join-code-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); joinGroupByCode(e.target.value); }
   });
 
   $('see-all-groups')?.addEventListener('click', () => navigateTo('groups'));
@@ -603,9 +545,78 @@ function initGroupListeners() {
   $('create-group-btn')?.addEventListener('click', createGroup);
 }
 
+async function joinGroupByCode(inviteCodeInput) {
+  const code = (inviteCodeInput || '').trim().toUpperCase();
+  if (!code) { showToast('Please enter a 6-character invite code 🔑', 'error'); return; }
+
+  const btn = $('submit-join-group-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Joining...'; }
+
+  try {
+    if (activeDemoSession || isDemoMode || !db) {
+      const demoDb = loadDemoDb();
+      let group = demoDb.groups.find(g => (g.inviteCode || '').toUpperCase() === code);
+      if (!group) {
+        showToast('No group found with that code 🔍', 'error');
+        return;
+      }
+      if (!group.members) group.members = [currentUser.uid];
+      if (!group.members.includes(currentUser.uid)) group.members.push(currentUser.uid);
+      if (!group.memberEmails) group.memberEmails = [currentUser.email];
+      if (!group.memberEmails.includes(currentUser.email)) group.memberEmails.push(currentUser.email);
+      saveDemoDb(demoDb);
+      await loadGroups();
+      closeModal('modal-join-group');
+      showToast(`Joined "${group.name}"! 🎉`, 'success');
+      renderGroups();
+      renderHome();
+      openGroupDetail(group.id);
+      return;
+    }
+
+    const q = query(collection(db, 'groups'), where('inviteCode', '==', code));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      showToast('Invalid invite code. Check & try again! 🔍', 'error');
+      return;
+    }
+
+    const groupDoc = snap.docs[0];
+    const groupData = groupDoc.data();
+
+    if (groupData.members && groupData.members.includes(currentUser.uid)) {
+      showToast(`You're already in "${groupData.name}"! 😊`, 'info');
+      closeModal('modal-join-group');
+      openGroupDetail(groupDoc.id);
+      return;
+    }
+
+    await updateDoc(doc(db, 'groups', groupDoc.id), {
+      members: arrayUnion(currentUser.uid),
+      memberEmails: arrayUnion(currentUser.email)
+    });
+
+    closeModal('modal-join-group');
+    showToast(`Welcome to "${groupData.name}"! 🎉`, 'success');
+    await loadGroups();
+    renderGroups();
+    renderHome();
+    openGroupDetail(groupDoc.id);
+    launchConfetti();
+  } catch (err) {
+    console.error('Error joining group:', err);
+    showToast('Failed to join group 😔 Try again!', 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Join Group ✨'; }
+  }
+}
+
 function addMemberEmail() {
-  const email = $('member-email-input').value.trim();
-  if (!email || !email.includes('@')) { showToast('Enter a valid email 📧', 'error'); return; }
+  const inputVal = $('member-email-input').value.trim();
+  if (!inputVal) { showToast('Enter a name or email 🌸', 'error'); return; }
+
+  const email = inputVal.includes('@') ? inputVal : `${inputVal.toLowerCase().replace(/\s+/g, '.')}@friend`;
+
   if (pendingMembers.includes(email)) { showToast('Already added!', 'error'); return; }
   if (email === currentUser?.email) { showToast('You\'re already in the group 😊', 'error'); return; }
 
@@ -617,12 +628,18 @@ function addMemberEmail() {
 function renderMemberChips() {
   const container = $('members-list');
   if (!container) return;
-  container.innerHTML = pendingMembers.map(email => `
-    <span class="member-chip">
-      ${email}
-      <button class="member-chip-remove" data-email="${email}" aria-label="Remove">✕</button>
-    </span>
-  `).join('');
+  const myName = userProfile.name || currentUser?.displayName || 'Soumya';
+  const creatorChip = `<span class="member-chip" style="background: var(--pink-light); color: var(--pink-hot); font-weight: 600;">${myName} [you]</span>`;
+  container.innerHTML = creatorChip + pendingMembers.map(email => {
+    const rawName = email.includes('@friend') ? email.split('@')[0].replace(/\./g, ' ') : email.split('@')[0];
+    const displayName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+    return `
+      <span class="member-chip">
+        ${displayName}
+        <button class="member-chip-remove" data-email="${email}" aria-label="Remove">✕</button>
+      </span>
+    `;
+  }).join('');
 
   container.querySelectorAll('.member-chip-remove').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -634,6 +651,7 @@ function renderMemberChips() {
 
 async function createGroup() {
   const name = $('group-name-input').value.trim();
+  const description = $('group-desc-input')?.value.trim() || '';
   if (!name) { showToast('Give your group a name! 🌸', 'error'); return; }
 
   const btn = $('create-group-btn');
@@ -641,11 +659,14 @@ async function createGroup() {
   btn.textContent = 'Creating...';
 
   try {
+    const inviteCode = generateInviteCode();
     const groupData = {
       id: 'g_' + Date.now(),
       name,
+      description,
       type: currentGroupType,
       emoji: getGroupEmoji(currentGroupType),
+      inviteCode,
       members: [currentUser.uid],
       memberEmails: [currentUser.email, ...pendingMembers],
       createdBy: currentUser.uid,
@@ -660,14 +681,16 @@ async function createGroup() {
       groups.unshift(groupData);
     } else {
       const ref = await addDoc(collection(db, 'groups'), groupData);
-      groups.unshift({ id: ref.id, ...groupData });
+      groupData.id = ref.id;
+      groups.unshift(groupData);
     }
 
     closeModal('modal-create-group');
-    showToast(`"${name}" created! 🎉`, 'success');
+    showToast(`"${name}" created! Code: ${inviteCode} 🎉`, 'success', 3500);
     renderGroups();
     renderHome();
     launchConfetti();
+    openGroupDetail(groupData.id);
   } catch (err) {
     showToast('Couldn\'t create group 😔', 'error');
     console.error(err);
@@ -683,15 +706,16 @@ function renderGroups() {
   if (groups.length === 0) {
     container.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <span class="empty-emoji">👯</span>
-        <p>No groups yet</p>
-        <p class="empty-sub">Tap "+ New" to create one!</p>
+        <span class="empty-emoji">🌸</span>
+        <p>Create your first group 🌸</p>
+        <p class="empty-sub">Tap "+ New" or "🔑 Join" to start!</p>
       </div>`;
     return;
   }
 
   container.innerHTML = groups.map((g, i) => {
     const balance = getGroupBalance(g.id);
+    const totalExpenses = expenses.filter(e => e.groupId === g.id).reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
     const balClass = balance > 0 ? 'positive' : balance < 0 ? 'negative' : 'neutral';
     const balText = balance === 0 ? 'All settled ✓' :
       balance > 0 ? `+${formatAmount(balance, getUserPreferredCurrency())} owed to you` :
@@ -701,7 +725,7 @@ function renderGroups() {
         <span class="group-card-emoji">${g.emoji}</span>
         <div class="group-card-name">${g.name}</div>
         <div class="group-card-members">
-          ${g.memberEmails?.length || 1} member${(g.memberEmails?.length || 1) !== 1 ? 's' : ''}
+          ${g.memberEmails?.length || 1} member${(g.memberEmails?.length || 1) !== 1 ? 's' : ''} · Total: ${formatAmount(totalExpenses, getUserPreferredCurrency())}
         </div>
         <div class="group-card-balance ${balClass}">${balText}</div>
       </div>`;
@@ -809,8 +833,28 @@ function initExpenseForm() {
 function populateExpenseForm() {
   const sel = $('expense-group');
   if (!sel) return;
-  sel.innerHTML = '<option value="">Select a group...</option>' +
-    groups.map(g => `<option value="${g.id}">${g.emoji} ${g.name}</option>`).join('');
+
+  const options = [
+    '<option value="g_personal">👤 Personal / General Expenses</option>',
+    ...groups.map(g => `<option value="${g.id}">${g.emoji} ${g.name}</option>`)
+  ];
+  sel.innerHTML = options.join('');
+
+  if (currentGroupId && groups.some(g => g.id === currentGroupId)) {
+    sel.value = currentGroupId;
+  } else if (groups.length > 0) {
+    sel.value = groups[0].id;
+    currentGroupId = groups[0].id;
+  } else {
+    sel.value = 'g_personal';
+    currentGroupId = 'g_personal';
+  }
+
+  if ($('expense-date')) {
+    $('expense-date').value = new Date().toISOString().split('T')[0];
+  }
+
+  populatePaidBy();
 
   if ($('expense-currency')) $('expense-currency').value = getUserPreferredCurrency();
 
@@ -821,7 +865,7 @@ function populateExpenseForm() {
   qsa('.mood-btn').forEach(b => b.classList.toggle('active', b.dataset.mood === 'worth-it'));
   qsa('.split-tab').forEach(t => t.classList.toggle('active', t.dataset.method === 'equal'));
 
-  if ($('split-detail')) $('split-detail').innerHTML = '';
+  renderSplitDetail();
 }
 
 function populatePaidBy() {
@@ -888,36 +932,53 @@ function renderSplitDetail() {
 }
 
 function getSplitData(amount, members, currency) {
+  if (!members || members.length === 0) {
+    showToast('Cannot split expense with zero people! ⚠️', 'error');
+    return null;
+  }
+  if (!amount || amount <= 0 || isNaN(amount)) {
+    showToast('Expense amount must be greater than zero 💰', 'error');
+    return null;
+  }
+
   if (currentSplitMethod === 'equal') {
     const each = amount / members.length;
-    return Object.fromEntries(members.map(m => [m, each]));
+    return Object.fromEntries(members.map(m => [m, parseFloat(each.toFixed(2))]));
   }
 
   const inputs = qsa('#split-detail .split-person-input');
-  const values = inputs.map(i => ({ email: i.dataset.email, val: parseFloat(i.value) || 0 }));
+  const values = inputs.map(i => ({ email: i.dataset.email, val: parseFloat(i.value) }));
+
+  if (values.some(v => isNaN(v.val) || v.val < 0)) {
+    showToast('Split values cannot be negative or empty! ⚠️', 'error');
+    return null;
+  }
 
   if (currentSplitMethod === 'percentage') {
     const total = values.reduce((s, v) => s + v.val, 0);
     if (Math.abs(total - 100) > 0.5) {
-      showToast(`Percentages must add up to 100% (currently ${total}%)`, 'error');
+      showToast(`Percentages must add up to 100% (currently ${total.toFixed(1)}%)`, 'error');
       return null;
     }
-    return Object.fromEntries(values.map(v => [v.email, (v.val / 100) * amount]));
+    return Object.fromEntries(values.map(v => [v.email, parseFloat(((v.val / 100) * amount).toFixed(2))]));
   }
 
   if (currentSplitMethod === 'exact') {
     const total = values.reduce((s, v) => s + v.val, 0);
-    if (Math.abs(total - amount) > 0.01) {
-      showToast(`Amounts must add up to ${formatAmount(amount, currency)}`, 'error');
+    if (Math.abs(total - amount) > 0.05) {
+      showToast(`Exact amounts (${formatAmount(total, currency)}) must add up to total ${formatAmount(amount, currency)}`, 'error');
       return null;
     }
-    return Object.fromEntries(values.map(v => [v.email, v.val]));
+    return Object.fromEntries(values.map(v => [v.email, parseFloat(v.val.toFixed(2))]));
   }
 
   if (currentSplitMethod === 'shares') {
     const totalShares = values.reduce((s, v) => s + v.val, 0);
-    if (totalShares <= 0) return null;
-    return Object.fromEntries(values.map(v => [v.email, (v.val / totalShares) * amount]));
+    if (totalShares <= 0) {
+      showToast('Total shares must be greater than zero! ⚠️', 'error');
+      return null;
+    }
+    return Object.fromEntries(values.map(v => [v.email, parseFloat(((v.val / totalShares) * amount).toFixed(2))]));
   }
 
   return null;
@@ -927,16 +988,38 @@ async function submitExpense(e) {
   e.preventDefault();
   const desc = $('expense-desc').value.trim();
   const amount = parseFloat($('expense-amount').value);
+  const dateVal = $('expense-date')?.value || new Date().toISOString().split('T')[0];
   const currency = $('expense-currency').value;
   const groupId = $('expense-group').value;
   const iouNote = $('iou-note').value.trim();
+  const notes = $('expense-notes')?.value.trim() || '';
   const paidBy = $('expense-paid-by').value;
 
   if (!desc) { showToast('What was the expense for? 🌸', 'error'); return; }
-  if (!amount || amount <= 0) { showToast('Enter a valid amount 💰', 'error'); return; }
+  if (!amount || amount <= 0) { showToast('Amount must be greater than 0 💰', 'error'); return; }
   if (!groupId) { showToast('Pick a group! 👯', 'error'); return; }
 
-  const group = groups.find(g => g.id === groupId);
+  let group = groups.find(g => g.id === groupId);
+  if (!group && groupId === 'g_personal') {
+    group = {
+      id: 'g_personal',
+      name: 'Personal Expenses 👤',
+      type: 'other',
+      emoji: '👤',
+      members: [currentUser.uid],
+      memberEmails: [currentUser.email],
+      createdBy: currentUser.uid,
+      createdAt: new Date().toISOString(),
+      savingsGoal: null
+    };
+    groups.push(group);
+    if (activeDemoSession || isDemoMode || !db) {
+      const demoDb = loadDemoDb();
+      if (!demoDb.groups.some(g => g.id === 'g_personal')) demoDb.groups.push(group);
+      saveDemoDb(demoDb);
+    }
+  }
+
   const members = group?.memberEmails || [currentUser.email];
   const splitData = getSplitData(amount, members, currency);
   if (!splitData) return;
@@ -951,10 +1034,11 @@ async function submitExpense(e) {
       desc,
       amount,
       currency,
+      date: dateVal,
       category: currentCategory,
       emoji: getCategoryEmoji(currentCategory),
       mood: currentMood,
-      groupId,
+      groupId: group.id,
       groupName: group.name,
       paidBy,
       paidByEmail: paidBy === currentUser.uid ? currentUser.email : paidBy,
@@ -962,10 +1046,11 @@ async function submitExpense(e) {
       splits: splitData,
       splitMethod: currentSplitMethod,
       iouNote,
+      notes,
       settled: false,
-      involvedUsers: [currentUser.uid],
+      involvedUsers: (group && Array.isArray(group.members) && group.members.length > 0) ? group.members : [currentUser.uid],
       createdBy: currentUser.uid,
-      createdAt: new Date().toISOString()
+      createdAt: dateVal ? new Date(dateVal).toISOString() : new Date().toISOString()
     };
 
     if (activeDemoSession || isDemoMode || !db) {
@@ -985,6 +1070,7 @@ async function submitExpense(e) {
     $('expense-desc').value = '';
     $('expense-amount').value = '';
     $('iou-note').value = '';
+    if ($('expense-notes')) $('expense-notes').value = '';
     $('split-detail').innerHTML = '';
     if ($('receipt-preview')) $('receipt-preview').classList.add('hidden');
 
@@ -1203,12 +1289,13 @@ function renderRecentActivity() {
   }
 
   container.innerHTML = recent.map(exp => renderActivityItem(exp)).join('');
+  attachDeleteListeners(container);
 }
 
 function renderActivity() {
   const container = $('activity-list');
   if (!container) return;
-  let filtered = expenses;
+  let filtered = [...expenses];
 
   if (currentFilter === 'settled') filtered = expenses.filter(e => e.settled);
   else if (currentFilter === 'owed') {
@@ -1217,15 +1304,142 @@ function renderActivity() {
     filtered = expenses.filter(e => !e.settled && e.paidBy !== currentUser.uid && e.paidByEmail !== currentUser.email);
   }
 
+  const sortVal = $('activity-sort')?.value || 'newest';
+  if (sortVal === 'newest') {
+    filtered.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+  } else if (sortVal === 'oldest') {
+    filtered.sort((a, b) => new Date(a.createdAt || a.date) - new Date(b.createdAt || b.date));
+  } else if (sortVal === 'highest') {
+    filtered.sort((a, b) => (b.amount || 0) - (a.amount || 0));
+  } else if (sortVal === 'lowest') {
+    filtered.sort((a, b) => (a.amount || 0) - (b.amount || 0));
+  }
+
   if (filtered.length === 0) {
     container.innerHTML = `<div class="empty-state">
       <span class="empty-emoji">📋</span>
-      <p>Nothing here yet!</p>
+      <p>Your activity will appear here.</p>
     </div>`;
     return;
   }
 
   container.innerHTML = filtered.map(exp => renderActivityItem(exp)).join('');
+  attachDeleteListeners(container);
+}
+
+let currentConfirmAction = null;
+
+function showConfirmDialog(title, message, onProceed) {
+  if ($('confirm-modal-title')) $('confirm-modal-title').textContent = title || 'Confirm Action ⚠️';
+  if ($('confirm-modal-message')) $('confirm-modal-message').textContent = message || 'Are you sure?';
+
+  currentConfirmAction = onProceed;
+  openModal('modal-confirm-action');
+
+  const cancelBtn = $('confirm-modal-cancel');
+  if (cancelBtn) {
+    cancelBtn.onclick = () => {
+      closeModal('modal-confirm-action');
+      currentConfirmAction = null;
+    };
+  }
+
+  const proceedBtn = $('confirm-modal-proceed');
+  if (proceedBtn) {
+    proceedBtn.onclick = async () => {
+      closeModal('modal-confirm-action');
+      if (currentConfirmAction) {
+        const action = currentConfirmAction;
+        currentConfirmAction = null;
+        await action();
+      }
+    };
+  }
+}
+
+function deleteExpense(expenseId) {
+  const exp = expenses.find(e => e.id === expenseId);
+  const title = exp ? `Delete "${exp.desc}"?` : 'Delete Expense?';
+  showConfirmDialog('Delete Expense 🗑️', `Are you sure you want to delete "${exp?.desc || 'this expense'}"? This cannot be undone.`, async () => {
+    try {
+      expenses = expenses.filter(e => e.id !== expenseId);
+
+      if (activeDemoSession || isDemoMode || !db) {
+        const demoDb = loadDemoDb();
+        demoDb.expenses = (demoDb.expenses || []).filter(e => e.id !== expenseId);
+        saveDemoDb(demoDb);
+      } else if (db) {
+        try {
+          await deleteDoc(doc(db, 'expenses', expenseId));
+        } catch (e) {
+          console.warn("Remote delete failed:", e);
+        }
+      }
+
+      userProfile.totalExpenses = Math.max(0, (userProfile.totalExpenses || 1) - 1);
+      showToast('Expense deleted 🗑️', 'info');
+
+      renderHome();
+      renderGroups();
+      renderActivity();
+      if (currentGroupId) {
+        const g = groups.find(grp => grp.id === currentGroupId);
+        if (g) {
+          renderVibeScore(currentGroupId);
+          renderGroupBalances(currentGroupId, g);
+          renderGroupExpenses(currentGroupId);
+        }
+      }
+    } catch (err) {
+      console.error("Error deleting expense:", err);
+      showToast('Could not delete expense 😔', 'error');
+    }
+  });
+}
+
+function deleteGroup(groupId) {
+  const group = groups.find(g => g.id === groupId);
+  if (!group) return;
+  showConfirmDialog('Delete Group 🗑️', `Are you sure you want to delete group "${group.name}" and all its expenses?`, async () => {
+    try {
+      groups = groups.filter(g => g.id !== groupId);
+      expenses = expenses.filter(e => e.groupId !== groupId);
+
+      if (activeDemoSession || isDemoMode || !db) {
+        const demoDb = loadDemoDb();
+        demoDb.groups = (demoDb.groups || []).filter(g => g.id !== groupId);
+        demoDb.expenses = (demoDb.expenses || []).filter(e => e.groupId !== groupId);
+        saveDemoDb(demoDb);
+      } else if (db) {
+        try {
+          await deleteDoc(doc(db, 'groups', groupId));
+        } catch (e) {
+          console.warn("Remote group delete failed:", e);
+        }
+      }
+
+      closeModal('modal-group-detail');
+      showToast(`Group "${group.name}" deleted 🗑️`, 'info');
+      renderHome();
+      renderGroups();
+      renderActivity();
+    } catch (err) {
+      console.error("Error deleting group:", err);
+      showToast('Could not delete group 😔', 'error');
+    }
+  });
+}
+
+function openEditExpenseModal(expenseId) {
+  const exp = expenses.find(e => e.id === expenseId);
+  if (!exp) return;
+
+  if ($('edit-expense-id')) $('edit-expense-id').value = exp.id;
+  if ($('edit-expense-desc')) $('edit-expense-desc').value = exp.desc;
+  if ($('edit-expense-amount')) $('edit-expense-amount').value = exp.amount;
+  if ($('edit-expense-date')) $('edit-expense-date').value = exp.date || new Date().toISOString().split('T')[0];
+
+  openModal('modal-edit-expense');
 }
 
 function renderActivityItem(exp) {
@@ -1263,11 +1477,32 @@ function renderActivityItem(exp) {
           ${exp.groupName || ''} · ${timeAgo(exp.createdAt)}
           ${exp.iouNote ? `<br><em style="color:var(--pink-hot)">💬 ${exp.iouNote}</em>` : ''}
         </div>
+        ${exp.notes ? `<div class="expense-personal-notes">📝 <strong>Note:</strong> ${exp.notes}</div>` : ''}
         ${exp.mood ? `<span class="mood-tag">${moodBadges[exp.mood] || exp.mood}</span>` : ''}
         ${exp.settled ? '<span class="settled-badge">✓ Settled</span>' : ''}
       </div>
-      <div class="activity-amount ${amountClass}">${amountText}</div>
+      <div class="activity-amount ${amountClass}" style="display:flex; align-items:center; gap:6px;">
+        <span>${amountText}</span>
+        <button class="edit-expense-btn" data-expense-id="${exp.id}" title="Edit expense" style="background:none; border:none; cursor:pointer; font-size:0.85rem; opacity:0.65; padding:2px 4px;">✏️</button>
+        <button class="delete-expense-btn" data-expense-id="${exp.id}" title="Delete expense" style="background:none; border:none; cursor:pointer; font-size:0.85rem; opacity:0.65; padding:2px 4px;">🗑️</button>
+      </div>
     </div>`;
+}
+
+function attachDeleteListeners(container) {
+  if (!container) return;
+  container.querySelectorAll('.delete-expense-btn').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      deleteExpense(btn.dataset.expenseId);
+    };
+  });
+  container.querySelectorAll('.edit-expense-btn').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      openEditExpenseModal(btn.dataset.expenseId);
+    };
+  });
 }
 
 // ============================================================
@@ -1337,7 +1572,62 @@ function openGroupDetail(groupId) {
   const group = groups.find(g => g.id === groupId);
   if (!group) return;
 
+  const totalGroupExpenses = expenses.filter(e => e.groupId === groupId).reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
+  const currency = getUserPreferredCurrency();
+
   if ($('gd-title')) $('gd-title').textContent = `${group.emoji} ${group.name}`;
+  if ($('gd-invite-code')) $('gd-invite-code').textContent = group.inviteCode || 'N/A';
+
+  if ($('gd-copy-code-btn')) {
+    $('gd-copy-code-btn').onclick = () => {
+      if (!group.inviteCode) return;
+      navigator.clipboard.writeText(group.inviteCode);
+      showToast(`Invite code ${group.inviteCode} copied! 📋`, 'success');
+    };
+  }
+
+  if ($('gd-copy-link-btn')) {
+    $('gd-copy-link-btn').onclick = () => {
+      if (!group.inviteCode) return;
+      const url = `${window.location.origin}${window.location.pathname}?join=${group.inviteCode}`;
+      navigator.clipboard.writeText(url);
+      showToast('Invite link copied! 🔗 Share with friends', 'success');
+    };
+  }
+
+  // Add an inline "+ Add Expense" button inside Group Detail modal
+  const header = $('gd-title')?.parentElement;
+  let addExpBtn = header?.querySelector('.gd-add-exp-btn');
+  if (!addExpBtn && header) {
+    addExpBtn = document.createElement('button');
+    addExpBtn.className = 'btn btn-primary btn-sm gd-add-exp-btn';
+    addExpBtn.style.marginLeft = 'auto';
+    addExpBtn.style.marginRight = '8px';
+    addExpBtn.textContent = '+ Add Expense';
+    addExpBtn.onclick = () => {
+      closeModal('modal-group-detail');
+      navigateTo('add');
+      const sel = $('expense-group');
+      if (sel) sel.value = groupId;
+      currentGroupId = groupId;
+      populatePaidBy();
+      renderSplitDetail();
+    };
+    header.insertBefore(addExpBtn, header.lastElementChild);
+  }
+
+  // Add Delete Group button
+  let deleteGrpBtn = header?.querySelector('.gd-delete-grp-btn');
+  if (!deleteGrpBtn && header) {
+    deleteGrpBtn = document.createElement('button');
+    deleteGrpBtn.className = 'btn btn-secondary btn-sm gd-delete-grp-btn';
+    deleteGrpBtn.style.marginRight = '8px';
+    deleteGrpBtn.style.background = 'rgba(255, 92, 138, 0.1)';
+    deleteGrpBtn.style.color = 'var(--pink-hot)';
+    deleteGrpBtn.textContent = '🗑️ Delete';
+    deleteGrpBtn.onclick = () => deleteGroup(groupId);
+    header.insertBefore(deleteGrpBtn, header.lastElementChild);
+  }
 
   renderVibeScore(groupId);
   renderGroupBalances(groupId, group);
@@ -1435,6 +1725,7 @@ function renderGroupExpenses(groupId) {
   }
 
   container.innerHTML = groupExpenses.map(exp => renderActivityItem(exp)).join('');
+  attachDeleteListeners(container);
 }
 
 // ============================================================
@@ -1443,33 +1734,78 @@ function renderGroupExpenses(groupId) {
 function initSettleListeners() {
   $('confirm-settle-btn')?.addEventListener('click', async () => {
     if (!settleTarget) return;
-    const note = $('settle-note').value.trim();
+    const settleAmt = parseFloat($('settle-amount')?.value);
+    const note = $('settle-note')?.value.trim() || '';
+
+    if (!settleAmt || settleAmt <= 0) {
+      showToast('Enter a valid settlement amount 💵', 'error');
+      return;
+    }
 
     const btn = $('confirm-settle-btn');
     btn.disabled = true;
     btn.textContent = 'Processing...';
 
     try {
-      expenses.filter(e => e.groupId === settleTarget.groupId && !e.settled).forEach(e => e.settled = true);
+      const fromName = settleTarget.from === currentUser.email ? (userProfile.name || 'You') : settleTarget.from.split('@')[0];
+      const toName = settleTarget.to === currentUser.email ? (userProfile.name || 'You') : settleTarget.to.split('@')[0];
+      const group = groups.find(g => g.id === settleTarget.groupId);
+
+      const settlementExpense = {
+        id: 'exp_settle_' + Date.now(),
+        desc: `Payment: ${fromName} → ${toName} 💵`,
+        amount: settleAmt,
+        currency: getUserPreferredCurrency(),
+        date: new Date().toISOString().split('T')[0],
+        category: 'other',
+        emoji: '💵',
+        mood: 'necessary',
+        groupId: settleTarget.groupId,
+        groupName: group?.name || 'Settlement Payment',
+        paidBy: settleTarget.from === currentUser.email ? currentUser.uid : settleTarget.from,
+        paidByEmail: settleTarget.from,
+        paidByName: fromName,
+        splits: {
+          [settleTarget.to]: settleAmt
+        },
+        splitMethod: 'exact',
+        iouNote: note ? `Settlement: ${note}` : 'Payment settled 💵',
+        notes: note,
+        settled: false,
+        involvedUsers: (group && Array.isArray(group.members) && group.members.length > 0) ? group.members : [currentUser.uid],
+        createdBy: currentUser.uid,
+        createdAt: new Date().toISOString()
+      };
+
+      if (activeDemoSession || isDemoMode || !db) {
+        const demoDb = loadDemoDb();
+        demoDb.expenses.unshift(settlementExpense);
+        saveDemoDb(demoDb);
+        expenses.unshift(settlementExpense);
+      } else {
+        const ref = await addDoc(collection(db, 'expenses'), settlementExpense);
+        expenses.unshift({ id: ref.id, ...settlementExpense });
+      }
 
       const newStreak = (userProfile.streak || 0) + 1;
       userProfile.streak = newStreak;
 
-      if (activeDemoSession || isDemoMode || !db) {
-        const demoDb = loadDemoDb();
-        demoDb.expenses.filter(e => e.groupId === settleTarget.groupId && !e.settled).forEach(e => e.settled = true);
-        if (demoDb.users['demo_user_1']) demoDb.users['demo_user_1'].streak = newStreak;
-        saveDemoDb(demoDb);
-      }
-
       closeModal('modal-settle');
-      closeModal('modal-group-detail');
-      showToast(`Settled up! 🎉 +1 Streak 🔥 (${newStreak}d streak!)`, 'success', 3200);
+      if (currentGroupId) {
+        const g = groups.find(grp => grp.id === currentGroupId);
+        if (g) {
+          renderVibeScore(currentGroupId);
+          renderGroupBalances(currentGroupId, g);
+          renderGroupExpenses(currentGroupId);
+        }
+      }
+      showToast(`Settlement recorded! 💵 +1 Streak 🔥 (${newStreak}d streak!)`, 'success', 3200);
       launchConfetti();
       renderHome();
       renderActivity();
     } catch (err) {
-      showToast('Couldn\'t mark as settled 😔', 'error');
+      console.error("Settlement failed:", err);
+      showToast('Couldn\'t record payment 😔', 'error');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Mark as Paid 🎉';
@@ -1808,30 +2144,78 @@ function initActivityFilters() {
       renderActivity();
     });
   });
+  $('activity-sort')?.addEventListener('change', renderActivity);
 }
 
 function initProfileListeners() {
   $('user-avatar-btn')?.addEventListener('click', () => {
-    const name = userProfile.name || currentUser?.displayName || 'Friend';
+    const name = userProfile.name || currentUser?.displayName || formatNameFromEmail(currentUser?.email) || 'Friend';
     if ($('profile-avatar-large')) $('profile-avatar-large').textContent = getUserInitial(name);
     if ($('profile-name-display')) $('profile-name-display').textContent = name;
     if ($('profile-email-display')) $('profile-email-display').textContent = currentUser?.email || '—';
+    if ($('pref-name')) $('pref-name').value = name;
     if ($('p-total-expenses')) $('p-total-expenses').textContent = userProfile.totalExpenses || expenses.length;
     if ($('p-total-groups')) $('p-total-groups').textContent = groups.length;
-    if ($('p-streak')) $('p-streak').textContent = `🔥${userProfile.streak || 4}`;
+    if ($('p-streak')) $('p-streak').textContent = `🔥${userProfile.streak || 0}`;
     if ($('pref-currency')) $('pref-currency').value = userProfile.currency || 'INR';
     openModal('modal-profile');
   });
 
   $('save-profile-btn')?.addEventListener('click', async () => {
     const currency = $('pref-currency').value;
+    const newName = $('pref-name')?.value.trim();
+    if (newName) {
+      userProfile.name = newName;
+      if (currentUser) currentUser.displayName = newName;
+    }
     userProfile.currency = currency;
-    showToast('Preferences saved! ✨', 'success');
-    closeModal('modal-profile');
+
+    if (activeDemoSession || isDemoMode || !db) {
+      const demoDb = loadDemoDb();
+      if (!demoDb.users) demoDb.users = {};
+      demoDb.users['demo_user_1'] = userProfile;
+      saveDemoDb(demoDb);
+    } else if (currentUser && db) {
+      try {
+        await updateDoc(doc(db, 'users', currentUser.uid), { name: newName || userProfile.name, currency });
+      } catch (e) { console.warn("Failed to update profile remote:", e); }
+    }
+
+    updateTopBar();
     renderHome();
+    closeModal('modal-profile');
+    showToast('Profile updated! ✨', 'success');
   });
 
-  $('signout-btn')?.addEventListener('click', () => {
+  $('reset-data-btn')?.addEventListener('click', () => {
+    localStorage.removeItem(DEMO_STORAGE_KEY);
+    const cleanData = getDemoInitialData();
+    saveDemoDb(cleanData);
+    groups = [];
+    expenses = [];
+    userProfile = {
+      name: currentUser?.displayName || userProfile.name || 'Demo User',
+      email: currentUser?.email || userProfile.email || 'user@example.com',
+      currency: userProfile.currency || 'INR',
+      streak: 0,
+      totalExpenses: 0
+    };
+    renderHome();
+    renderGroups();
+    renderActivity();
+    updateTopBar();
+    closeModal('modal-profile');
+    showToast('All data reset to zero! Clean state ready for use 🌸', 'success', 3200);
+  });
+
+  $('signout-btn')?.addEventListener('click', async () => {
+    if (!isDemoMode && auth) {
+      try {
+        await signOut(auth);
+      } catch (err) {
+        console.error("Sign out error:", err);
+      }
+    }
     activeDemoSession = false;
     currentUser = null;
     userProfile = {};
@@ -1840,6 +2224,16 @@ function initProfileListeners() {
     showAuth();
     showToast('Signed out! 👋', 'info');
   });
+}
+
+function checkPendingJoinUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const joinCode = params.get('join');
+  if (joinCode && currentUser) {
+    if ($('join-code-input')) $('join-code-input').value = joinCode.toUpperCase();
+    openModal('modal-join-group');
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 }
 
 function initModalCloseHandlers() {
@@ -1876,12 +2270,120 @@ function hideSplash() {
   setTimeout(() => splash.classList.add('hidden'), 500);
 }
 
+function openQuickActionModal() {
+  openModal('modal-quick-action');
+}
+
+function initQuickActionListeners() {
+  $('qa-create-group-btn')?.addEventListener('click', () => {
+    closeModal('modal-quick-action');
+    pendingMembers = [];
+    if ($('group-name-input')) $('group-name-input').value = '';
+    if ($('group-desc-input')) $('group-desc-input').value = '';
+    if ($('member-email-input')) $('member-email-input').value = '';
+    renderMemberChips();
+    currentGroupType = 'trip';
+    qsa('.gtype-btn').forEach(b => b.classList.toggle('active', b.dataset.type === 'trip'));
+    openModal('modal-create-group');
+  });
+
+  $('qa-join-group-btn')?.addEventListener('click', () => {
+    closeModal('modal-quick-action');
+    if ($('join-code-input')) $('join-code-input').value = '';
+    openModal('modal-join-group');
+  });
+
+  $('qa-add-expense-btn')?.addEventListener('click', () => {
+    closeModal('modal-quick-action');
+    navigateTo('add');
+  });
+}
+
 function initNav() {
   $('bottom-nav')?.querySelectorAll('.nav-item').forEach(btn => {
     btn.addEventListener('click', e => {
       addRipple(btn, e);
+      if (btn.classList.contains('nav-add') || btn.dataset.page === 'add') {
+        openQuickActionModal();
+        return;
+      }
       navigateTo(btn.dataset.page);
     });
+  });
+}
+
+function updateSyncStatusBadge() {
+  const badge = $('sync-status-badge');
+  if (!badge) return;
+  if (isDemoMode || !db) {
+    badge.textContent = '⚡ Local Mode (Offline)';
+    badge.style.background = 'rgba(255, 238, 220, 0.9)';
+    badge.style.color = '#B76E00';
+  } else {
+    badge.textContent = '🟢 Live Cloud Sync';
+    badge.style.background = 'rgba(184, 242, 208, 0.9)';
+    badge.style.color = '#0E6237';
+  }
+}
+
+function initEditExpenseListeners() {
+  $('edit-expense-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const expenseId = $('edit-expense-id').value;
+    const desc = $('edit-expense-desc').value.trim();
+    const amount = parseFloat($('edit-expense-amount').value);
+    const dateVal = $('edit-expense-date')?.value || new Date().toISOString().split('T')[0];
+
+    if (!desc) { showToast('Enter expense description', 'error'); return; }
+    if (!amount || amount <= 0 || isNaN(amount)) { showToast('Enter a valid amount', 'error'); return; }
+
+    const exp = expenses.find(e => e.id === expenseId);
+    if (!exp) return;
+
+    const oldAmount = exp.amount;
+    exp.desc = desc;
+    exp.amount = amount;
+    exp.date = dateVal;
+
+    if (oldAmount > 0 && exp.splits) {
+      const ratio = amount / oldAmount;
+      Object.keys(exp.splits).forEach(email => {
+        exp.splits[email] = parseFloat((exp.splits[email] * ratio).toFixed(2));
+      });
+    }
+
+    if (activeDemoSession || isDemoMode || !db) {
+      const demoDb = loadDemoDb();
+      const targetExp = demoDb.expenses.find(e => e.id === expenseId);
+      if (targetExp) {
+        targetExp.desc = desc;
+        targetExp.amount = amount;
+        targetExp.date = dateVal;
+        targetExp.splits = exp.splits;
+      }
+      saveDemoDb(demoDb);
+    } else if (db) {
+      try {
+        await updateDoc(doc(db, 'expenses', expenseId), { desc, amount, date: dateVal, splits: exp.splits });
+      } catch (err) {
+        console.warn("Failed to update remote expense:", err);
+      }
+    }
+
+    closeModal('modal-edit-expense');
+    showToast('Expense updated! ✨', 'success');
+
+    renderHome();
+    renderGroups();
+    renderActivity();
+    if (currentGroupId) {
+      const g = groups.find(grp => grp.id === currentGroupId);
+      if (g) {
+        renderVibeScore(currentGroupId);
+        renderGroupBalances(currentGroupId, g);
+        renderGroupExpenses(currentGroupId);
+      }
+    }
   });
 }
 
@@ -1891,7 +2393,9 @@ async function init() {
   initNav();
   initAuthListeners();
   initGroupListeners();
+  initQuickActionListeners();
   initExpenseForm();
+  initEditExpenseListeners();
   initSettleListeners();
   initPollListeners();
   initSavingsListeners();
@@ -1899,6 +2403,7 @@ async function init() {
   initActivityFilters();
   initProfileListeners();
   initModalCloseHandlers();
+  updateSyncStatusBadge();
 
   if (isDemoMode || !auth) {
     hideSplash();

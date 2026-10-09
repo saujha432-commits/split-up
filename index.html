@@ -48,14 +48,18 @@
       <!-- Login Form -->
       <div id="login-form" class="auth-form">
         <div class="form-group">
-          <label for="login-email">Email</label>
+          <label for="login-name">Your Name <span class="optional-tag">optional</span></label>
+          <input type="text" id="login-name" placeholder="e.g. Soumya Jha" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="login-email">E-mail</label>
           <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" />
         </div>
         <div class="form-group">
           <label for="login-password">Password</label>
           <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
         </div>
-        <button id="login-btn" class="btn btn-primary btn-full">Sign In 💌</button>
+        <button id="login-btn" class="btn btn-primary btn-full">Sign In </button>
         <div class="auth-divider"><span>or</span></div>
         <button id="google-login-btn" class="btn btn-google btn-full">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" />
@@ -82,7 +86,7 @@
           <input type="password" id="signup-password" placeholder="Make it strong! 🔒" autocomplete="new-password" />
         </div>
         <button id="signup-btn" class="btn btn-primary btn-full">Create Account 🎉</button>
-        <p class="auth-switch">Already have one? <button id="show-login" class="link-btn">Sign in 💌</button></p>
+        <p class="auth-switch">Already have one? <button id="show-login" class="link-btn">Sign in </button></p>
       </div>
     </div>
   </div>
@@ -94,6 +98,7 @@
     <header class="top-bar" id="top-bar">
       <div class="top-bar-left">
         <span class="app-brand">Split Up </span>
+        <span id="sync-status-badge" class="sync-badge" style="font-size:0.75rem; padding:4px 8px; border-radius:99px; background:rgba(255,255,255,0.8); color:var(--plum-main); font-weight:600; margin-left:8px; border:1px solid rgba(0,0,0,0.06);">⚡ Offline Mode</span>
       </div>
       <div class="top-bar-right">
         <button class="icon-btn" id="notifications-btn" aria-label="Notifications">
@@ -179,7 +184,10 @@
         <div class="page-content">
           <div class="page-header">
             <h2 class="page-title">Groups 🏡</h2>
-            <button class="btn btn-primary btn-sm" id="new-group-btn">+ New</button>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="join-group-btn">🔑 Join</button>
+              <button class="btn btn-primary btn-sm" id="new-group-btn">+ New</button>
+            </div>
           </div>
           <div id="groups-list" class="groups-grid">
             <div class="empty-state">
@@ -216,6 +224,10 @@
               </div>
             </div>
             <div class="form-group">
+              <label for="expense-date">Date</label>
+              <input type="date" id="expense-date" class="styled-input" />
+            </div>
+            <div class="form-group">
               <label>Category</label>
               <div class="category-picker" id="category-picker">
                 <button type="button" class="cat-btn active" data-cat="food" data-emoji="🍕">🍕 Food</button>
@@ -240,9 +252,12 @@
             </div>
             <div class="form-group">
               <label>Group</label>
-              <select id="expense-group" class="styled-select">
-                <option value="">Select a group...</option>
-              </select>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <select id="expense-group" class="styled-select" style="flex:1;">
+                  <option value="g_personal">👤 Personal / General Expenses</option>
+                </select>
+                <button type="button" class="btn btn-secondary btn-sm" id="inline-new-group-btn" style="white-space:nowrap; padding:12px 14px;">+ Create Group</button>
+              </div>
             </div>
             <div class="form-group">
               <label>Paid by</label>
@@ -261,11 +276,15 @@
               <div id="split-detail" class="split-detail"></div>
             </div>
             <div class="form-group">
-              <label>IOU Note <span class="optional-tag">optional</span></label>
+              <label>IOU Message <span class="optional-tag">optional</span></label>
               <div class="iou-input-wrap">
-                <input type="text" id="iou-note" placeholder="Add a message 😭" maxlength="120" />
+                <input type="text" id="iou-note" placeholder="Add a short message 😭" maxlength="120" />
                 <button type="button" class="emoji-picker-btn" id="iou-emoji-btn">😄</button>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="expense-notes">Personal Notes & Reminders 📝 <span class="optional-tag">optional</span></label>
+              <textarea id="expense-notes" class="styled-textarea" rows="3" placeholder="Write any notes, reminders, or details to keep in mind (e.g. Paid in cash, due next week, ask Rahul about receipt)..."></textarea>
             </div>
             <div class="form-group">
               <label>Receipt <span class="optional-tag">optional</span></label>
@@ -286,13 +305,19 @@
       <!-- ACTIVITY PAGE -->
       <div id="page-activity" class="page hidden">
         <div class="page-content">
-          <div class="page-header">
+          <div class="page-header" style="flex-wrap: wrap; gap: 8px;">
             <h2 class="page-title">Activity 📋</h2>
-            <div class="filter-row">
+            <div class="filter-row" style="display:flex; align-items:center; gap:6px;">
               <button class="filter-btn active" data-filter="all">All</button>
               <button class="filter-btn" data-filter="owed">Owed</button>
               <button class="filter-btn" data-filter="owes">Owes</button>
               <button class="filter-btn" data-filter="settled">Settled</button>
+              <select id="activity-sort" class="styled-select" style="padding: 6px 10px; font-size: 0.8rem; width: auto; margin-left: 4px;">
+                <option value="newest">Newest ⬇️</option>
+                <option value="oldest">Oldest ⬆️</option>
+                <option value="highest">Highest $</option>
+                <option value="lowest">Lowest $</option>
+              </select>
             </div>
           </div>
           <div id="activity-list" class="activity-list"></div>
@@ -324,6 +349,39 @@
 
   <!-- MODALS -->
 
+  <!-- Quick Action Modal (Triggered by "+" button) -->
+  <div id="modal-quick-action" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width: 400px; text-align: center;">
+      <div class="modal-header" style="justify-content: space-between;">
+        <h3>What would you like to do? ✨</h3>
+        <button class="modal-close" data-modal="modal-quick-action">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px; padding-top: 10px;">
+        <button class="btn btn-primary btn-full" id="qa-create-group-btn" style="padding: 14px; font-size: 1rem; text-align: left; display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.5rem;">🌸</span>
+          <div>
+            <strong>Create New Group</strong>
+            <div style="font-size: 0.78rem; opacity: 0.88; font-weight: 400;">Set up a new trip, apartment, or event</div>
+          </div>
+        </button>
+        <button class="btn btn-secondary btn-full" id="qa-join-group-btn" style="padding: 14px; font-size: 1rem; text-align: left; display: flex; align-items: center; gap: 12px; background: #FFF0E8; border: 1.5px solid var(--pink-mid);">
+          <span style="font-size: 1.5rem;">🔑</span>
+          <div>
+            <strong>Join Group with Code</strong>
+            <div style="font-size: 0.78rem; color: var(--plum-light); font-weight: 400;">Enter a 6-character group invite code</div>
+          </div>
+        </button>
+        <button class="btn btn-secondary btn-full" id="qa-add-expense-btn" style="padding: 14px; font-size: 1rem; text-align: left; display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.5rem;">💸</span>
+          <div>
+            <strong>Add New Expense</strong>
+            <div style="font-size: 0.78rem; color: var(--plum-light); font-weight: 400;">Log a bill split with your groups or friends</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Create Group Modal -->
   <div id="modal-create-group" class="modal-overlay hidden">
     <div class="modal-card">
@@ -333,8 +391,12 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label>Group Name</label>
+          <label for="group-name-input">Group Name</label>
           <input type="text" id="group-name-input" placeholder="e.g. Goa Trip 🌴" maxlength="40" />
+        </div>
+        <div class="form-group">
+          <label for="group-desc-input">Group Description <span class="optional-tag">optional</span></label>
+          <input type="text" id="group-desc-input" placeholder="e.g. Weekend trips & dinner splits 🌴" maxlength="100" />
         </div>
         <div class="form-group">
           <label>Group Type</label>
@@ -358,6 +420,26 @@
     </div>
   </div>
 
+  <!-- Join Group Modal -->
+  <div id="modal-join-group" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Join Group 🔑</h3>
+        <button class="modal-close" data-modal="modal-join-group">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--plum-light); margin-bottom: 16px; line-height: 1.4;">
+          Have a 6-character group invite code from a friend? Enter it below to join their group!
+        </p>
+        <div class="form-group">
+          <label for="join-code-input">Group Invite Code</label>
+          <input type="text" id="join-code-input" placeholder="e.g. X7K9P2" maxlength="10" style="text-transform: uppercase; font-weight: 700; letter-spacing: 3px; text-align: center; font-size: 1.25rem; font-family: var(--font-heading); background: #FFF0E8; border: 2px dashed var(--pink-mid);" />
+        </div>
+        <button class="btn btn-primary btn-full" id="submit-join-group-btn">Join Group ✨</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Group Detail Modal -->
   <div id="modal-group-detail" class="modal-overlay hidden">
     <div class="modal-card modal-card-tall">
@@ -366,6 +448,18 @@
         <button class="modal-close" data-modal="modal-group-detail">✕</button>
       </div>
       <div class="modal-body">
+        <!-- Invite Code Card -->
+        <div id="gd-invite-card" style="background: var(--cream-dark); border: 1.5px dashed var(--pink-mid); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+          <div>
+            <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; color: var(--plum-light); display: block; letter-spacing: 0.5px;">Group Invite Code</span>
+            <strong id="gd-invite-code" style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--pink-hot); letter-spacing: 2px;">XXXXXX</strong>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-secondary btn-sm" id="gd-copy-code-btn" style="padding: 6px 10px; font-size: 0.8rem;">📋 Code</button>
+            <button class="btn btn-secondary btn-sm" id="gd-copy-link-btn" style="padding: 6px 10px; font-size: 0.8rem;">🔗 Link</button>
+          </div>
+        </div>
+
         <div class="vibe-score-card" id="gd-vibe-card">
           <div class="vibe-score-label">Group Vibe Score 🌈</div>
           <div class="vibe-score-bar-wrap">
@@ -494,6 +588,10 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="pref-name">Your Name</label>
+          <input type="text" id="pref-name" placeholder="e.g. Soumya Jha" autocomplete="name" />
+        </div>
+        <div class="form-group">
           <label>Currency Preference</label>
           <select id="pref-currency" class="styled-select">
             <option value="INR">₹ INR</option>
@@ -503,6 +601,7 @@
           </select>
         </div>
         <button class="btn btn-secondary btn-full" id="save-profile-btn">Save Changes</button>
+        <button class="btn btn-secondary btn-full" id="reset-data-btn" style="background:rgba(255, 92, 138, 0.08); color:var(--pink-hot); border:1px dashed var(--pink-hot); margin-top:8px;">Reset All Data (Zero State) 🔄</button>
         <button class="btn btn-ghost btn-full" id="signout-btn">Sign Out 👋</button>
       </div>
     </div>
@@ -543,7 +642,7 @@
           <label>Encouraging Note <span class="optional-tag">optional</span></label>
           <input type="text" id="chip-in-note" placeholder="For the Goa trip vibes! 🌴" />
         </div>
-        <button class="btn btn-primary btn-full" id="submit-chip-in-btn">Chip In 💖</button>
+        <button class="btn btn-primary btn-full" id="submit-chip-in-btn">Chip In </button>
       </div>
     </div>
   </div>
@@ -576,14 +675,58 @@
       <div class="modal-body">
         <div id="share-card-canvas" class="share-card">
           <div class="share-card-header">
-            <span class="share-card-logo">Split Up 💖</span>
+            <span class="share-card-logo">Split Up </span>
             <span class="share-card-badge">STORY SUMMARY</span>
           </div>
           <div class="share-card-group-name" id="sc-group-name">Group Name</div>
           <div class="share-card-balances" id="sc-balances"></div>
-          <div class="share-card-footer">Generated with Split Up 💖 · Friends. Expenses. No Drama.</div>
+          <div class="share-card-footer">Generated with Split Up  · Friends. Expenses. No Drama.</div>
         </div>
         <button class="btn btn-primary btn-full" id="download-share-card-btn">📥 Download PNG Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Expense Modal -->
+  <div id="modal-edit-expense" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Edit Expense ✏️</h3>
+        <button class="modal-close" data-modal="modal-edit-expense">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-expense-form">
+          <input type="hidden" id="edit-expense-id" />
+          <div class="form-group">
+            <label for="edit-expense-desc">Description</label>
+            <input type="text" id="edit-expense-desc" required placeholder="e.g. Dinner at Zomato" />
+          </div>
+          <div class="form-group">
+            <label for="edit-expense-amount">Amount</label>
+            <input type="number" id="edit-expense-amount" step="0.01" min="0.01" required placeholder="0.00" />
+          </div>
+          <div class="form-group">
+            <label for="edit-expense-date">Date</label>
+            <input type="date" id="edit-expense-date" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="save-edit-expense-btn">Save Changes ✨</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Confirmation Modal -->
+  <div id="modal-confirm-action" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width: 380px; text-align: center;">
+      <div class="modal-header" style="justify-content: center;">
+        <h3 id="confirm-modal-title">Confirm Action ⚠️</h3>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message" style="margin: 12px 0 20px 0; color: var(--plum-light); font-size: 0.95rem;">Are you sure?</p>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary btn-full" id="confirm-modal-cancel">Cancel</button>
+          <button class="btn btn-primary btn-full" id="confirm-modal-proceed" style="background: var(--pink-hot);">Delete 🗑️</button>
+        </div>
       </div>
     </div>
   </div>
